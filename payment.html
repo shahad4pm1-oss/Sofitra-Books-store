@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment - Sofitra Books</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Inline styles for layout and design -->
+  <style>
+    h1, h2 {
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid brown;
+      border-radius: 4px;
+    }
+
+    nav {
+      text-align: center;
+    }
+
+    header {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Website header with page title and image -->
+  <header>
+    <h1>Payment</h1>
+    <img id="meow" src="photo/pay.png" alt="Payment Methods" width="400" height="150">
+  </header>
+
+  <!-- Main content area -->
+  <main class="container">
+
+    <!-- Section: Billing and payment form -->
+    <section>
+      <form class="page4">
+        
+        <!-- Section: Billing Information -->
+        <section>
+          <h2>Billing Information</h2>
+
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" required>
+
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="number">Phone Number:</label>
+          <input type="text" id="number" name="number" required>
+        </section>
+
+        <!-- Section: Payment Method -->
+        <section>
+          <h2>Payment Method</h2>
+
+          <label for="payment-method">Choose Payment Method:</label><br>
+          <select id="payment-method" name="payment" required>
+            <option value="">-- Select --</option>
+            <option value="card">Credit/Debit Card</option>
+            <option value="apple">Apple Pay</option>
+            <option value="cod">Cash on Delivery</option>
+          </select><br><br>
+
+          <!-- Section: Card details (shown only if card is selected) -->
+          <div id="card-details">
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card-number" maxlength="16">
+
+            <label for="expiry">Expiry Date:</label>
+            <input type="month" id="expiry" name="expiry">
+
+            <label for="cvv">CVV:</label>
+            <input type="password" id="cvv" name="cvv" maxlength="3">
+          </div>
+        </section>
+
+        <!-- Submit button -->
+        <button type="submit">Pay Now</button>
+        <br><br>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Navigation links -->
+  <nav>
+    <a href="index.html" class="button">Home</a>
+    <a href="Categories.html" class="button">Buy Books</a>
+    <a href="contact.html" class="button">Contact Us</a>
+  </nav>
+
+  <!-- Footer with copyright -->
+  <footer>
+    <p>&copy; 2025 Sofitra Books. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for card input visibility -->
+  <script>
+    const paymentSelect = document.getElementById('payment-method');
+    const cardDetails = document.getElementById('card-details');
+
+    function updateCardVisibility() {
+      cardDetails.style.display = paymentSelect.value === 'card' ? 'block' : 'none';
+    }
+
+    paymentSelect.addEventListener('change', updateCardVisibility);
+    window.addEventListener('load', updateCardVisibility);
+  </script>
+
+</body>
+</html>

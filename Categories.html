@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buy Books - Sofitra</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    
+   
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid brown;
+      border-radius: 4px;
+    }
+
+    
+
+    .book-item {
+      padding: 10px;
+      border-bottom: 1px solid #d2b48c;
+      cursor: pointer;
+    }
+
+    #book-list {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff8e1;
+      border: 1px solid brown;
+      border-radius: 8px;
+    }
+
+    #book-modal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      
+      background-color: white;
+      border: 2px solid brown;
+      padding: 20px;
+      z-index: 1000;
+      width: 300px;
+      border-radius: 8px;
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 900;
+    }
+
+    #cart {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #fdf5e6;
+      border: 1px solid brown;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Available Books</h1>
+
+  
+  <form id="filter-form">
+    <label for="category">Choose Category:</label><br>
+    <select id="category">
+  <option value="">-- All Categories --</option>
+  <option value="Novels">Novels</option>
+  <option value="Philosophy">Philosophy</option>
+  <option value="Comics">Comics</option>
+</select>
+
+    <label for="price">Choose Price:</label><br>
+    <select id="price">
+      <option value="">-- All Prices --</option>
+      <option value="low">Under 30 SAR</option>
+      <option value="medium">30 - 100 SAR</option>
+      <option value="high">Above 100 SAR</option>
+    </select><br><br>
+
+    <button type="submit">Filter Books</button>
+    <button type="button" id="reset">Reset</button>
+  </form>
+
+  
+  <div id="book-list"></div>
+
+  
+  <div id="overlay"></div>
+  <div id="book-modal">
+    <h3 id="modal-title"></h3>
+    <img id="modal-image" src="" alt="Book cover" style="width:100%; border-radius:8px;">
+    <p id="modal-category"></p>
+    <p id="modal-price"></p>
+    <p id="modal-author"></p>
+    <p id="modal-description"></p>
+    <button id="add-to-cart">Add to Cart</button>
+    <button onclick="closeModal()">Close</button>
+  </div>
+
+  
+  <div id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+  </div>
+
+<script>
+  const books = [
+  { 
+    title: "Crime and Punishment", 
+    category: "Novels", 
+    price: 55, 
+    author: "Fyodor Dostoevsky",
+    description: "A psychological novel exploring guilt, morality, and redemption through the story of a man who commits a crime.",
+    image: "photo/crime.jpg"
+  },
+  { 
+    title: "Sophie's World", 
+    category: "Philosophy", 
+    price: 48, 
+    author: "Jostein Gaarder",
+    description: "An engaging introduction to philosophy told through the story of a young girl receiving mysterious letters.",
+    image: "photo/sophie.jpg"
+  },
+  { 
+    title: "Kafka on the Shore", 
+    category: "Novels", 
+    price: 62, 
+    author: "Haruki Murakami",
+    description: "A surreal journey blending dreams, memory, and reality in a story of self-discovery.",
+    image: "photo/kafka.jpg"
+  },
+  { 
+    title: "The Philosophy of Calmness", 
+    category: "Philosophy", 
+    price: 35, 
+    author: "Marcus Aurelius",
+    description: "A collection of thoughts on maintaining inner peace and wisdom in everyday life.",
+    image: "photo/calmness.jpg"
+  },
+  { 
+    title: "Bleach (Manga)", 
+    category: "Comics", 
+    price: 40, 
+    author: "Tite Kubo",
+    description: "A Japanese manga following Ichigo Kurosaki’s journey after gaining the powers of a Soul Reaper.",
+    image: "photo/bleach.jpg"
+  }
+];
+  
+  const categorySelect = document.getElementById('category');
+  const priceSelect = document.getElementById('price');
+  const bookList = document.getElementById('book-list');
+  const form = document.getElementById('filter-form');
+  const resetBtn = document.getElementById('reset');
+  const modal = document.getElementById('book-modal');
+  const overlay = document.getElementById('overlay');
+  const modalTitle = document.getElementById('modal-title');
+  const modalCategory = document.getElementById('modal-category');
+  const modalPrice = document.getElementById('modal-price');
+  const addToCartBtn = document.getElementById('add-to-cart');
+  const cartItems = document.getElementById('cart-items');
+
+  let selectedBook = null;
+  let cart = [];
+
+  function showBooks(list) {
+  bookList.innerHTML = '<h2>Books</h2>';
+
+  if (list.length === 0) {
+    bookList.innerHTML += '<p>No books found.</p>';
+    return;
+  }
+
+  for (let book of list) {
+    let item = document.createElement('div');
+    item.className = 'book-item';
+    item.textContent = `${book.title} - ${book.category} - ${book.price} SAR`;
+    item.onclick = function() {
+      showDetails(book);
+    };
+    bookList.appendChild(item);
+  }
+}
+
+  function showDetails(book) {
+    selectedBook = book;
+    modalTitle.textContent = book.title;
+    modalCategory.textContent = "Category: " + book.category;
+    modalPrice.textContent = "Price: " + book.price + " SAR";
+    document.getElementById('modal-author').textContent = "Author: " + book.author;
+   document.getElementById('modal-description').textContent = book.description;
+   document.getElementById('modal-image').src = book.image;
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+
+  addToCartBtn.onclick = function() {
+    if (selectedBook) {
+      cart.push(selectedBook);
+      updateCart();
+      closeModal();
+      const goBtn = document.createElement('button');
+    goBtn.textContent = "Go to Payment";
+    goBtn.onclick = function() {
+      window.location.href = "payment.html";
+    };
+
+    const cartDiv = document.getElementById('cart');
+    if (!document.getElementById('goPaymentBtn')) {
+      goBtn.id = 'goPaymentBtn';
+      goBtn.style.marginTop = "15px";
+      cartDiv.appendChild(goBtn);
+    }
+    }
+  };
+
+  function updateCart() {
+    cartItems.innerHTML = '';
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.title + " - " + item.price + " SAR";
+      cartItems.appendChild(li);
+    });
+  }
+
+  function filterBooks() {
+    const category = categorySelect.value;
+    const price = priceSelect.value;
+
+    const filtered = books.filter(book => {
+      const matchCategory = !category || book.category === category;
+      const matchPrice =
+        !price ||
+        (price === 'low' && book.price < 30) ||
+        (price === 'medium' && book.price >= 30 && book.price <= 100) ||
+        (price === 'high' && book.price > 100);
+
+      return matchCategory && matchPrice;
+    });
+
+    showBooks(filtered);
+  }
+
+  form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  filterBooks();        
+});
+
+  resetBtn.addEventListener('click', function() {
+  categorySelect.value = '';
+  priceSelect.value = '';
+  showBooks(books);
+});
+
+window.addEventListener('load', function() {
+  showBooks(books);
+});
+</script>
+
+</body>
+</html>

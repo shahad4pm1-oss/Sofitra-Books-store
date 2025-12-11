@@ -1,0 +1,80 @@
+/* Page background and text */
+
+body {
+  background-color: beige;
+  color: brown;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Main title */
+
+h1 {
+  color: brown;
+  text-align: center;
+}
+
+/* Paragraphs */
+
+p {
+  color: #5c3d2e;
+  font-size: 16px;
+}
+
+/* Links */
+
+a {
+  color: brown;
+  text-decoration: none;
+}
+
+
+/* Button style */
+
+button {
+  background-color: brown;
+  color: beige;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Link styled as button */
+
+a.button {
+  background: brown;
+  color: beige;
+  padding: 8px 16px;
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: bold;
+  margin: 5px;
+  text-align: center;
+}
+
+#card-details {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #5c3d2e;
+}
+
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  background-color: #fdf5e6;
+  padding: 20px;
+  border: 1px solid brown;
+  border-radius: 8px;
+}
+
+label {
+  font-weight: bold;
+  color: brown;
+}

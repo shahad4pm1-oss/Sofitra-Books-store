@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Sofitra Books</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>Create Your Account</h1>
+    <p>Join Sofitra Books and start your reading journey!</p>
+  </header>
+
+  <!-- Main content area -->
+  <main class="container">
+
+    <!-- Section: Registration form -->
+    <section>
+      <form class="page1">
+        <!-- Input field for full name -->
+        <label for="fullname">Full Name:</label><br>
+        <input type="text" id="fullname" name="fullname" required><br><br>
+
+        <!-- Input field for email -->
+        <label for="email">Email Address:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- Input field for password -->
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <!-- Input field to confirm password -->
+        <label for="confirm">Confirm Password:</label><br>
+        <input type="password" id="confirm" name="confirm" required><br><br>
+
+        <!-- Submit button -->
+        <button type="submit">Register</button>
+      </form>
+    </section>
+
+    <!-- Section: Login link for existing users -->
+    <section>
+      <p>Already have an account? <a href="index.html">Login here</a></p>
+    </section>
+
+  </main>
+
+  <!-- Navigation links to other pages -->
+  <nav>
+    <a href="index.html" class="button">Home</a>
+    <a href="Categories.html" class="button">Buy Books</a>
+    <a href="contact.html" class="button">Contact Us</a>
+  </nav>
+
+  <!-- Footer with copyright -->
+  <footer>
+    <p>&copy; 2025 Sofitra Books. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript to check password match -->
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+
+      if (password !== confirm) {
+        alert('Passwords do not match!');
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sofitra Books</title>
+
+  <!-- Link to CSS stylesheet -->
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    window.addEventListener('load', function () {
+      alert('Welcome to Sofitra Bookstore! ');
+    });
+  </script>
+</head>
+
+<body>
+
+  <!-- Header section-->
+
+  <header>
+    <h1>Sofitra Books store</h1>
+    <img src="photo/so.png" alt="Sofitra Books Logo" width="500" height="200">
+
+    <p>Welcome to our online bookstore!</p>
+  </header>
+
+  <section class="page1">
+    <h2>Login to Your Account</h2>
+
+    <!-- Login form with email and password -->
+
+    <form action="login.php" method="POST">
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <button type="submit">Login</button>
+
+    </form>
+    <p>Don't have an account? <a href="signup.php">Create one</a></p>
+  </section>
+
+  <!-- links to other pages Buy Books and Contact Us -->
+
+  <nav>
+    <a href="Categories.html" class="button">Buy Books</a>
+    <a href="contact.html" class="button">Contact Us</a>
+  </nav>
+
+  <main>
+    <h2>Our Services</h2>
+    <ul>
+      <li>A wide selection of books across various categories</li>
+      <li>Easy returns within 7 days of purchase</li>
+      <li> online payment (e.g., Apple Pay)</li>
+      <li>Organized categories to help you find the perfect book</li>
+    </ul>
+  </main>
+
+  <!-- Footer , copyright information -->
+
+  <footer>
+    <p>&copy; 2025 Sofitra Books. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
